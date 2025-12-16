@@ -17,7 +17,7 @@ namespace core_web_api_with_angular.Controllers
                 Directory.CreateDirectory(_uploadDir);
             }
         }
-        User dbobj = new User();
+        UserDB dbobj=new UserDB();
         // GET: api/<user_management>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -58,6 +58,8 @@ namespace core_web_api_with_angular.Controllers
             usercls.photo = createdto.path.FileName;
             usercls.username = createdto.username;
             usercls.password = createdto.password;
+            dbobj.insertdb(usercls);
+            return await Task.Run(() => Ok(new { message = "Registered Successfully" }));
         }
 
         // PUT api/<user_management>/5

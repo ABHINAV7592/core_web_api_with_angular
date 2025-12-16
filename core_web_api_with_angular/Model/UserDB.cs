@@ -23,6 +23,29 @@ namespace core_web_api_with_angular.Model
             con.Close();
             return ("Inserted Successfully");
         }
+        public string logindb(User clsobj)
+        {
+            try
+            {
+                string cid = "";
+                SqlCommand cmd = new SqlCommand("sp_login", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@una", clsobj.username);
+                cmd.Parameters.AddWithValue("@pw", clsobj.password);
+                con.Open();
+                cid = cmd.ExecuteScalar().ToString();
+                con.Close();
+                return cid;
+            }
+            catch(Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                return ex.Message.ToString();
+            }
+        }
 
 
     }
