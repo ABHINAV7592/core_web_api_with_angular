@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using core_web_api_with_angular.Model;
+using Microsoft.AspNetCore.Identity;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -60,6 +61,23 @@ namespace core_web_api_with_angular.Controllers
             usercls.password = createdto.password;
             dbobj.insertdb(usercls);
             return await Task.Run(() => Ok(new { message = "Registered Successfully" }));
+        }
+        [HttpPost]
+        [Route("logintab")]
+        public async Task<IActionResult> postlogin([FromBody]loginDTO createdto)
+        {
+            User usercls = new User();
+            usercls.username = createdto.username;
+            usercls.password = createdto.password;
+            string cid = dbobj.logindb(usercls);
+            if (cid == "1")
+            {
+                return await Task.Run(() => Ok(new { message = "Success" }));
+            }
+            else
+            {
+                return await Task.Run(() => Ok(new { message = "Invalid Login" }));
+            }
         }
 
         // PUT api/<user_management>/5
