@@ -72,7 +72,9 @@ namespace core_web_api_with_angular.Controllers
             string cid = dbobj.logindb(usercls);
             if (cid == "1")
             {
-                return await Task.Run(() => Ok(new { message = "Success" }));
+                //return await Task.Run(() => Ok(new { message = "Success" }));
+                string uid = dbobj.getid(usercls);
+                return await Task.Run(() => Ok(new { userid = uid }));
             }
             else
             {

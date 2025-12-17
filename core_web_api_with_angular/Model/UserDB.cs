@@ -47,6 +47,30 @@ namespace core_web_api_with_angular.Model
             }
         }
 
+        public string getid(User clsobj)
+        {
+            try
+            {
+                string id = "";
+                SqlCommand cmd = new SqlCommand("sp_getid", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@una", clsobj.username);
+                cmd.Parameters.AddWithValue("@pw", clsobj.password);
+                con.Open();
+                id = cmd.ExecuteScalar().ToString();
+                con.Close();
+                return id;
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                return ex.Message.ToString();
+            }
+        }
+
 
     }
 }
