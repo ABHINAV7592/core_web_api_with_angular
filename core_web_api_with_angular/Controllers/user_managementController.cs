@@ -33,7 +33,7 @@ namespace core_web_api_with_angular.Controllers
         {
             User getemployee = dbobj.selectprofiledb(id);
             var fileurl = Path.Combine(Directory.GetCurrentDirectory(), "uploads", getemployee.photo);
-            byte[] imagebytes = await System.IO.File.ReadAllBytesAsync(fileurl);
+            byte[] imagebytes = await System.IO.File.ReadAllBytesAsync(fileurl);   //system.IO is the namespace.
             string base64string = Convert.ToBase64String(imagebytes);
             getemployee.photo = base64string;
             return Ok(getemployee);
