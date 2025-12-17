@@ -27,7 +27,8 @@ namespace core_web_api_with_angular.Controllers
         }
 
         // GET api/<user_management>/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("getdatawithid/{id}")]
         public string Get(int id)
         {
             return "value";

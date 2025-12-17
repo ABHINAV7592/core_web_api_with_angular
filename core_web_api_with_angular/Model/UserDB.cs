@@ -70,6 +70,41 @@ namespace core_web_api_with_angular.Model
                 return ex.Message.ToString();
             }
         }
+        public User selectprofiledb(int id)
+        {
+            var getdata = new User();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_selectprofile", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@userid", id);
+                con.Open();
+                SqlDataReader sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    getdata = new User
+                    {
+                        user_id = Convert.ToInt32(sdr["user_id"]),
+                        name = sdr["name"].ToString(),
+                        age = Convert.ToInt32(sdr["age"]),
+                        address = sdr["address"].ToString(),
+                        email = sdr["email"].ToString(),
+                        photo = sdr["photo"].ToString(),
+                    };
+                }
+                con.Close();
+                return getdata;
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                throw;
+                
+            }
+        }
 
 
     }
