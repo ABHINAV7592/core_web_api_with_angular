@@ -80,8 +80,9 @@ namespace core_web_api_with_angular.Controllers
             {
                
                 string uid = dbobj.getid(usercls);
-                return await Task.Run(() => Ok(new { message = "Success" }));
                 return await Task.Run(() => Ok(new { userid = uid }));
+                //return await Task.Run(() => Ok(new { message = "Success" }));
+                
             }
             else
             {
